@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Precio de Venta</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <style>
+        body {
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            max-width: 500px;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .result {
+            display: none;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container text-center animate__animated animate__fadeIn">
+        <h1 class="mb-4">Calculadora de Precio de Venta</h1>
+        <form id="priceForm">
+            <div class="mb-3">
+                <label for="cost" class="form-label">Costo Base ($)</label>
+                <input type="number" class="form-control" id="cost" required>
+            </div>
+            <div class="mb-3">
+                <label for="profit" class="form-label">Porcentaje de Ganancia (%)</label>
+                <input type="number" class="form-control" id="profit" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Calcular</button>
+        </form>
+        <div class="result animate__animated animate__fadeInUp">
+            <h2>Precio de Venta: <span id="salePrice"></span> $</h2>
+            <h3>Margen de Ganancia: <span id="profitMargin"></span> $</h3>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0/js/bootstrap.min.js"></script>
+    <script>
+        document.getElementById('priceForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const cost = parseFloat(document.getElementById('cost').value);
+            const profitPercentage = parseFloat(document.getElementById('profit').value);
+            
+            if (isNaN(cost) || isNaN(profitPercentage)) {
+                alert('Por favor, ingrese valores válidos.');
+                return;
+            }
+            
+            const profitMargin = (cost * profitPercentage) / 100;
+            const salePrice = cost + profitMargin;
+            
+            document.getElementById('salePrice').innerText = salePrice.toFixed(2);
+            document.getElementById('profitMargin').innerText = profitMargin.toFixed(2);
+            
+            document.querySelector('.result').style.display = 'block';
+        });
+    </script>
+</body>
+</html>
